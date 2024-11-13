@@ -2,42 +2,49 @@ import styled from "styled-components";
 import ThemeSwitcher from "../header/ThemeSwitcher";
 import logo from '../../assets/images/bookshop-logo.png'
 import { FaSignInAlt, FaRegUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { useCategory } from "../../hooks/useCategory";
 
-const CATEGORY = [
-    {
-        id: null,
-        name: "전체",
-    },
-    {
-        id: 0,
-        name: "동화",
-    },
-    {
-        id: 1,
-        name: "소설",
-    },
-    {
-        id: 2,
-        name: "사회",
-    },
-];
+// const CATEGORY = [
+//     {
+//         id: null,
+//         name: "전체",
+//     },
+//     {
+//         id: 0,
+//         name: "동화",
+//     },
+//     {
+//         id: 1,
+//         name: "소설",
+//     },
+//     {
+//         id: 2,
+//         name: "사회",
+//     },
+// ];
 
 
 function Header() {
+
+    const { category } = useCategory();
+
     return (
         <HeaderStyle>
             <h1 className="logo">
+             <Link to="/">
                 <img src={logo} alt="book shop" />
+              </Link>
             </h1>
             <nav className="category">
                 <ul>
                     {
-                        CATEGORY.map((item) => (
+                        category.map((item) => (
                             <li key={item.id}>
-                                <a href={item.id === null ? "/books" : 
+                                <Link to={item.id === null ? "/books" : 
                                     `/books?category_id=${item.id}`}>
                                     {item.name}
-                                </a>
+                                </Link>
                             </li>
                         ))}
                 </ul>
